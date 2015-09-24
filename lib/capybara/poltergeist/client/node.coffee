@@ -62,6 +62,7 @@ class Poltergeist.Node
       x: position.x + x
       y: position.y + y
 
+    console.log "version is 1 #{window.phantom.version.major == 1}"
     if window.phantom.version.major == 1
       final_pos.x -= 5
       final_pos.y -= 5

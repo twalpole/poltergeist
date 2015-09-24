@@ -231,6 +231,10 @@ module Capybara::Poltergeist
       command 'send_keys', page_id, id, normalize_keys(keys)
     end
 
+    def path(page_id, id)
+      command 'path', page_id, id
+    end
+
     def network_traffic
       command('network_traffic').values.map do |event|
         NetworkTraffic::Request.new(

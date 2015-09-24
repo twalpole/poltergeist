@@ -62,10 +62,11 @@ class Poltergeist.Node
       x: position.x + x
       y: position.y + y
 
+    console.log "final_pos is #{final_pos.x}, #{final_pos.y}"
     console.log "version is 1 #{window.phantom.version.major == 1}"
-    if window.phantom.version.major == 1
-      final_pos.x -= 5
-      final_pos.y -= 5
+    # if window.phantom.version.major == 1
+    #   final_pos.x -= 5
+    #   final_pos.y -= 5
 
     @page.mouseEvent('mousedown', position.x,      position.y)
     @page.mouseEvent('mouseup',   final_pos.x,  final_pos.y)

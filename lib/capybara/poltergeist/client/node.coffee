@@ -30,7 +30,7 @@ class Poltergeist.Node
     }
 
   mouseEvent: (name) ->
-    this.scrollIntoView()
+    # this.scrollIntoView()
 
     # sometimes scrollIntoViewIfNeeded doesn't work - not sure why - force it if needed
     this.scrollIntoView(true) if this.outsideViewport()

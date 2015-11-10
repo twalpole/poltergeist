@@ -32,7 +32,11 @@ class Poltergeist.Node
   mouseEvent: (name) ->
     this.scrollIntoView()
 
-    pos  = this.mouseEventPosition()
+    # sometimes scrollIntoViewIfNeeded doesn't work - not sure why - force it if needed
+    this.scrollIntoView(true) if this.outsideViewport()
+
+    pos = this.mouseEventPosition()
+
     test = this.mouseEventTest(pos.x, pos.y)
 
     if test.status == 'success'
@@ -69,3 +73,8 @@ class Poltergeist.Node
 
   isEqual: (other) ->
     @page == other.page && this.isDOMEqual(other.id)
+
+  outsideViewport: ->
+    pos  = this.position()
+    viewport = @page.viewportSize()
+    pos.right < 0 || pos.left > viewport.width || pos.bottom < 0 or pos.top > viewport.height

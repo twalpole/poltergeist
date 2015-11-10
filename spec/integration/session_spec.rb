@@ -76,7 +76,7 @@ describe Capybara::Session do
         end
       end
 
-      context 'when the element is not in the viewport' do
+      context 'when the element is not in the viewport', focus: true do
         before do
           @session.visit('/poltergeist/with_js')
         end
@@ -109,6 +109,11 @@ describe Capybara::Session do
 
       it 'scrolls into view' do
         @session.click_link 'Link outside viewport'
+        expect(@session.current_path).to eq('/')
+      end
+
+      it 'scrolls into view if scrollIntoViewIfNeeded fails' do
+        @session.click_link 'Below the fold'
         expect(@session.current_path).to eq('/')
       end
     end
@@ -824,5 +829,6 @@ describe Capybara::Session do
         expect(@session).to have_xpath("//a[@id='open-twice' and @confirmed='false']")
       end
     end
+
   end
 end

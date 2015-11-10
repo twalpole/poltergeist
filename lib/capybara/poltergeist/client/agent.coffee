@@ -193,8 +193,12 @@ class PoltergeistAgent.Node
     else
       @element.getAttribute(name)
 
-  scrollIntoView: ->
-    @element.scrollIntoViewIfNeeded()
+  scrollIntoView: (force = false) ->
+    if force
+      @element.scrollIntoView()
+    else
+      @element.scrollIntoViewIfNeeded()
+
 
   value: ->
     if @element.tagName == 'SELECT' && @element.multiple

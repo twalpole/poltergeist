@@ -8,4 +8,5 @@ platforms :rbx do
   gem 'rubysl'
   gem 'racc'
   gem 'json'
+  gem 'listen'
 end

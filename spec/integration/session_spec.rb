@@ -627,6 +627,51 @@ describe Capybara::Session do
       end
     end
 
+    context 'a new window' do
+      it 'inherits size' do
+        @session.visit '/'
+        @session.current_window.resize_to(1200,800)
+        new_tab = @session.open_new_window
+        expect(new_tab.size).to eq [1200,800]
+      end
+
+      it 'inherits url_blacklist' do
+        @session.visit '/'
+        @session.driver.browser.url_blacklist = ['unwanted']
+        new_tab = @session.open_new_window
+        @session.within_window(new_tab) do
+          @session.visit '/poltergeist/url_blacklist'
+          expect(@session).to have_content('We are loading some unwanted action here')
+          @session.within_frame 'framename' do
+            expect(@session.html).not_to include('We shouldn\'t see this.')
+          end
+        end
+      end
+
+      it 'inherits url_whitelist' do
+        @session.visit '/'
+        @session.driver.browser.url_whitelist = ['url_whitelist', '/poltergeist/wanted']
+        new_tab = @session.open_new_window
+        @session.within_window(new_tab) do
+          @session.visit '/poltergeist/url_whitelist'
+
+          expect(@session).to have_content('We are loading some wanted action here')
+          @session.within_frame 'framename' do
+            expect(@session).to have_content('We should see this.')
+          end
+          @session.within_frame 'unwantedframe' do
+            #make sure non whitelisted urls are blocked
+            expect(@session).not_to have_content("We shouldn't see this.")
+          end
+        end
+      end
+
+      after(:each) do
+        @session.driver.browser.url_blacklist = []
+        @session.driver.browser.url_whitelist = []
+      end
+    end
+
     context 'frame support' do
       it 'supports selection by index' do
         @session.visit '/poltergeist/frames'

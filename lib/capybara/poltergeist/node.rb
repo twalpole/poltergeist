@@ -156,6 +156,7 @@ module Capybara::Poltergeist
     end
 
     def ==(other)
+      puts "page_id: #{page_id} - other_page_id: #{other.page_id} -- id: #{id} - other_id: #{other.id}"
       (page_id == other.page_id) && command(:equals, other.id)
     end
 

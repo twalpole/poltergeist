@@ -143,8 +143,11 @@ class Poltergeist.WebPage
       this.native().injectJs "#{phantom.libraryPath}/agent.js"
       for extension in WebPage.EXTENSIONS
         this.native().injectJs extension
+      console.log("injected page #{@id}")
       return true
-    return false
+    else
+      console.log("injection not needed for page #{@id}")
+      return false
 
   injectExtension: (file) ->
     WebPage.EXTENSIONS.push file

@@ -63,7 +63,9 @@ RSpec.configure do |config|
   Capybara::SpecHelper.configure(config)
 
   config.filter_run_excluding :full_description => lambda { |description, metadata|
-    description !~ /\#match_xpath\?/
+    (description !~ /\#match_xpath\?/) &&
+    (description !~ /all/) &&
+    (description !~ /find/)
   }
 
   config.before(:each) do

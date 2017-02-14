@@ -34,7 +34,9 @@ class PoltergeistAgent
 
   register: (element) ->
     @elements.push(element)
-    @elements.length - 1
+    i = @elements.length - 1
+    console.log "Registered element #{i}"
+    i
 
   documentSize: ->
     height: document.documentElement.scrollHeight || document.documentElement.clientHeight,
@@ -94,6 +96,7 @@ class PoltergeistAgent.Node
   constructor: (@agent, @element) ->
 
   parentId: ->
+    console.log "There is no parent" unless @element.parentNode
     @agent.register(@element.parentNode)
 
   parentIds: ->

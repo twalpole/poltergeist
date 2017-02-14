@@ -1,5 +1,5 @@
 sudo: false
-script: DEBUG=true bundle exec rake
+script: DEBUG=true bundle exec rspec -fd
 before_script: ${PHANTOMJS:-phantomjs} --version
 before_install:
    - mkdir -p travis-phantomjs2 travis-phantomjs21

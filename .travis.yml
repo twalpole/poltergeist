@@ -1,5 +1,5 @@
 sudo: false
-script: bundle exec rake
+script: DEBUG=true bundle exec rake
 before_script: ${PHANTOMJS:-phantomjs} --version
 before_install:
    - mkdir -p travis-phantomjs2 travis-phantomjs21
@@ -12,10 +12,7 @@ cache:
     - $PWD/travis-phantomjs21
 
 rvm:
-  - 2.3.0
-  - 2.2.2
-  - 2.1.6
-  - rbx
+  - jruby-9.1.7.0
 gemfile:
   - Gemfile
 env:
@@ -24,28 +21,6 @@ env:
 
 matrix:
   include:
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.1_9_3
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.1_9_3
-    - rvm: 2.0.0
-      gemfile: gemfiles/Gemfile.2_0_0
-    - rvm: 2.2.2
-      gemfile: Gemfile
-      env: PHANTOMJS=$PWD/travis-phantomjs2/phantomjs
-    - rvm: 2.2.2
-      gemfile: Gemfile
-      env: PHANTOMJS=$PWD/travis-phantomjs21/phantomjs
-    - rvm: 2.2.5
-      gemfile: gemfiles/Gemfile.capybara_master
-      env: PHANTOMJS=$PWD/travis-phantomjs2/phantomjs
-    - rvm: 2.3.1
-      gemfile: gemfiles/Gemfile.capybara_master
-      env: PHANTOMJS=$PWD/travis-phantomjs21/phantomjs
     - rvm: jruby-9.1.7.0
       gemfile: Gemfile
       env: PHANTOMJS=$PWD/travis-phantomjs21/phantomjs
-  allow_failures:
-    - gemfile: gemfiles/Gemfile.capybara_master
-    - rvm: rbx
-    - rvm: jruby-9.1.7.0
